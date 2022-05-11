@@ -50,7 +50,7 @@ public class RentService {
     }
 
     public Optional<Reservation> getReservationByBike(Bike bike){
-        return reservationRepository.getByBike(bike.getBike_code());
+        return reservationRepository.findBybike(bike.getBike_code());
     }
 
     public Rent save(Rent rent){

@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Table(name = "location")
 @JsonIgnoreProperties(value = {"hibernateLazyInitializer","handler"})
 public class Location {
     @Id
@@ -31,6 +32,14 @@ public class Location {
     }
 
     public Location() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public int getTotal_slots() {
