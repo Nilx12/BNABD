@@ -3,6 +3,7 @@ package com.example.bikerentalservice.services;
 import com.example.bikerentalservice.Repository.UserRepository;
 import com.example.bikerentalservice.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -10,6 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collection;
 import java.util.Collections;
 
 @Service
@@ -25,10 +27,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         boolean accountNonExpired = true;
         boolean credentialsNonExpired = true;
         boolean accountNonLocked = true;
-
+        Collection<? extends GrantedAuthority> authorities = Collections.singletonList(new SimpleGrantedAuthority(user.getRole().getRole_name()));
+        System.out.println(authorities);
         return new org.springframework.security.core.userdetails.User(
                 user.getUsername(), user.getHashedPassword(),enabled, accountNonExpired,
-                credentialsNonExpired, accountNonLocked, Collections.singletonList(new SimpleGrantedAuthority(user.getRole().getRole_name()))
+                credentialsNonExpired, accountNonLocked, authorities
         );
     }
 }

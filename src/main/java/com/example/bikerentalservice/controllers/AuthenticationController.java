@@ -9,6 +9,7 @@ import com.example.bikerentalservice.model.User;
 import com.example.bikerentalservice.response.JWTResponse;
 import com.example.bikerentalservice.response.MessageResponse;
 import com.example.bikerentalservice.services.UserService;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -41,7 +47,7 @@ public class AuthenticationController {
     JwtUtils jwtUtils;
 
     @PostMapping( "/signin")
-    public ResponseEntity<?>  authenticateUser(@ModelAttribute("user") UserDto loginRequest) {
+    public ResponseEntity<?>  authenticateUser(@ModelAttribute("user") UserDto loginRequest, HttpServletRequest request,HttpServletResponse response) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
@@ -50,6 +56,9 @@ public class AuthenticationController {
 
         User user = userService.getByUserName(loginRequest.getUsername());
 
+
+        HttpSession session = request.getSession(true);
+        session.setAttribute("key","Bearer "+jwt);
         return ResponseEntity.ok(new JWTResponse(jwt,
                 user.getId(),
                 user.getUsername(),

@@ -58,12 +58,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests().antMatchers("/api/auth/**").permitAll()
-                .antMatchers("/api/test/**").permitAll()
                 .antMatchers("/api/rental/login").permitAll()
                 .antMatchers("/api/rental/register").permitAll()
-                .antMatchers("/api/rental/home").permitAll()
-                .antMatchers("/api/rental/**").permitAll()
+                .antMatchers("/api/rental/home").hasAnyAuthority("ADMIN","USER")
+                .antMatchers("/api/rental/**").hasAnyAuthority("ADMIN","USER")
+                .antMatchers("/appi/rental/**").hasAnyAuthority("ADMIN","USER")
+                .antMatchers("/api/admin/**").hasAuthority("ADMIN")
                 .anyRequest().permitAll();
         http.addFilterBefore(this.authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }
+
 }
