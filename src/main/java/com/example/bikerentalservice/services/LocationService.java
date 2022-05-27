@@ -1,6 +1,7 @@
 package com.example.bikerentalservice.services;
 
 import com.example.bikerentalservice.Repository.LocationRepository;
+import com.example.bikerentalservice.model.Bike;
 import com.example.bikerentalservice.model.Location;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,5 +21,8 @@ public class LocationService {
     }
     public List<Location> getByCity(String city){
         return locationRepository.getByCity(city);
+    }
+    public Location save(Location location){
+        return locationRepository.save(location);
     }
 }

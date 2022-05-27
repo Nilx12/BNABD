@@ -22,7 +22,7 @@ import java.util.List;
 
 @AllArgsConstructor
 @Controller
-@RequestMapping("/appi/rental")
+@RequestMapping("/api/rental")
 public class HomeController {
 
     private UserService userService;

@@ -1,22 +1,22 @@
 package com.example.bikerentalservice.controllers;
 
-import com.example.bikerentalservice.model.Location;
+import com.example.bikerentalservice.model.*;
 import com.example.bikerentalservice.services.BikeService;
 import com.example.bikerentalservice.services.LocationService;
+import com.example.bikerentalservice.services.RentService;
 import com.example.bikerentalservice.services.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalTime;
+import java.util.Optional;
 
 
 @AllArgsConstructor
 @Controller
-@RequestMapping("/appi/rental")
+@RequestMapping("/api/rental")
 public class LocationController {
 
     private LocationService locationService;
@@ -31,7 +31,7 @@ public class LocationController {
     @GetMapping("/city/{name}/locations")
     public String getLocationByCity(@PathVariable("name") String city,Model model){
         model.addAttribute("locations",locationService.getByCity(city));
-        return "locationList";
+        return "locationCityList";
     }
 
     @GetMapping("/locations/{id}")

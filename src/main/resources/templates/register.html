@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<meta charset="UTF-8">
+<title>Page Title</title>
+
+<link rel="stylesheet" href="">
+<style>
+</style>
+<script src=""></script>
+<body>
+<div class="container">
+    <form action="#" th:action="@{/api/auth/signup}" th:object="${user}" method="post">
+        <label>Nickname</label>
+        <input type="text" th:field="*{username}" />
+        <label>Password</label>
+        <input type="text" th:field="*{email}" />
+        <label>Password</label>
+        <input type="text" th:field="*{password}" />
+        <label>Password</label>
+        <input type="text" th:field="*{repeatPassword}" />
+        <input type="submit" value="Submit" />
+    </form>
+</div>
+</body>
+</html>
